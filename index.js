@@ -15,24 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', router);
 
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome!" });
-});
-
-app.post('/auth/login', (req, res) => {
-    console.log(req.body);
-
-    const token = jwt.sign({
-        login: req.body.login,
-        fullName: 'Вася'
-    }, process.env.SECRET_KEY);
-
-    res.json({
-       success: true,
-       token
-    });
-});
-
 const start = async () => {
     try {
         await sequelize.authenticate();
