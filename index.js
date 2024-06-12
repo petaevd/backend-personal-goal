@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import sequelize from './db.js';
-import jwt from 'jsonwebtoken';
 import {configDotenv} from "dotenv";
 import router from "./routes/index.js";
 

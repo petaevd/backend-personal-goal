@@ -46,7 +46,6 @@ export const register = async (req, res) =>{
     }
 }
 
-
 export const login = async (req, res) =>{
     try {
         //Проверяем есть ли пользователь в бд с введенным логином
