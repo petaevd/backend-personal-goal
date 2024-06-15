@@ -17,6 +17,12 @@ const Goal = sequelize.define('Goal', {
     tags: {
         type: DataTypes.STRING
     },
+    startDate: {
+        type: DataTypes.STRING
+    },
+    endDate: {
+        type: DataTypes.STRING
+    },
     UserId: {
         type: DataTypes.INTEGER,
         references: {

@@ -18,13 +18,15 @@ export const getGoalsUser = async (req, res) =>{
 //Создание цели
 export const createGoal = async (req, res) =>{
     try{
-        const { title, description, tags } = req.body;
+        const { title, description, tags, startDate, endDate } = req.body;
         const userId = req.userId;
 
         const newGoal = await GoalModel.create({
             title,
             description,
             tags,
+            startDate,
+            endDate,
             UserId: userId
         });
 
@@ -38,18 +40,41 @@ export const createGoal = async (req, res) =>{
     }
 }
 
-export const updateGoal = async (req, res) =>{
-    try{
+// Обновляем
+export const updateGoal = async (req, res) => {
+    try {
+        const goalId = req.params.id;
+        const { title, description, tags, startDate, endDate } = req.body;
 
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: "Не удалось создать цель"
-        });
-    }
-}
+        const goal = await GoalModel.findByPk(goalId);
 
+        if (!goal) {
+            return res.status(404).json({ message: "Цель не найдена" });
+        }
+
+        await GoalModel.update(
+            {
+                title,
+                description,
+                tags,
+                startDate,
+                endDate,
+            },
+            {
+                where: { id: goalId },
+            }
+        );
+
+        const updatedGoal = await GoalModel.findByPk(goalId);
+
+        res.json(updatedGoal);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Не удалось обновить цель" });
+    }
+};
+
+//Удалить
 export const deleteGoal = async (req, res) =>{
     try{
         const goalId = req.params.id;
