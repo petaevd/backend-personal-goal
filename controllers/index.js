@@ -1,2 +1,3 @@
-export * as UserController from './UserController.js';
-export * as GoalController from './GoalController.js';
+export * as UserController from './userController.js';
+export * as GoalController from './goalController.js';
+export * as AdminController from './adminController.js';

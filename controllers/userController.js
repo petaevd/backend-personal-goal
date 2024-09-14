@@ -10,7 +10,7 @@ export const register = async (req, res) =>{
             return res.status(400).json(errors.array());
         }
 
-        const { userName, login, password } = req.body;
+        const { userName, login, password, role } = req.body;
 
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
@@ -18,12 +18,14 @@ export const register = async (req, res) =>{
         const newUser = await UserModel.create({
             userName,
             login,
-            passwordHash: hash
+            passwordHash: hash,
+            role: role || 'USER'
         });
 
         const token = jwt.sign(
             {
-                id: newUser.id
+                id: newUser.id,
+                role: newUser.role
             },
             process.env.SECRET_KEY,
             {
@@ -69,7 +71,8 @@ export const login = async (req, res) =>{
         //Генерируем токен
         const token = jwt.sign(
             {
-                id: user.id
+                id: user.id,
+                role: user.role
             },
             process.env.SECRET_KEY,
             {

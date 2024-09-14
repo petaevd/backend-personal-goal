@@ -8,4 +8,5 @@ router.post('/goals', checkAuth, GoalController.createGoal);
 router.get('/goals', checkAuth, GoalController.getGoalsUser);
 router.delete('/goals/:id', checkAuth, GoalController.deleteGoal);
 router.patch('/goals/:id', checkAuth, GoalController.updateGoal);
+
 export default router;
